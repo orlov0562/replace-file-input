@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<body>
+
+<img id="preview">
+<input type="file" class="file-img-uploader" data-preview="#preview">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(function(){
+
+	window.formsReplaceFileToImgUploader = function(fileInputEl) {
+		var fileEl = $(fileInputEl);
+		var newBtn = $('<input>', {type:'button', value:'Select..', class:'btn btn-default'});
+		newBtn.click(function(){$(fileEl).click();});
+		fileEl.after($('<div>').append(newBtn));
+		if (fileEl.data('preview')) {
+			var imgEl = $(fileEl.data('preview'));
+			if (imgEl.length) {
+				fileEl.change(function(){
+	            	if (!this.files || !this.files.length) return;
+	            	if ( ['image/png', 'image/jpeg', 'image/gif'].indexOf( this.files.item(0).type ) < 0 ) return;
+	
+	            	var reader = new FileReader();
+	                reader.onload = function (e) {
+	                    imgEl.attr('src', e.target.result);
+	                }
+	            	reader.readAsDataURL(this.files[0]);
+				});
+			}
+		}
+	}
+	
+	$('.file-img-uploader').each(function(index, el){
+		formsReplaceFileToImgUploader($(el));
+	});
+
+});
+</script>
+</body>
+</html>
