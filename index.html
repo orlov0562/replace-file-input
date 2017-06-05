@@ -1,9 +1,10 @@
 <!doctype html>
 <html>
 <body>
-
-<img id="preview">
+Select png, jpg or gif file:
 <input type="file" class="file-img-uploader" data-preview="#preview">
+<hr>
+<img id="preview">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -13,7 +14,7 @@ $(function(){
 		var fileEl = $(fileInputEl);
 		var newBtn = $('<input>', {type:'button', value:'Select..', class:'btn btn-default'});
 		newBtn.click(function(){$(fileEl).click();});
-		fileEl.after($('<div>').append(newBtn));
+		fileEl.hide().after($('<div>').append(newBtn));
 		if (fileEl.data('preview')) {
 			var imgEl = $(fileEl.data('preview'));
 			if (imgEl.length) {
